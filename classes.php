@@ -50,7 +50,7 @@ class WordpressThemeFragment {
 
 				$_cat = $_categories[0];
 				
-				$this->load_item($_cat,'cat');
+				$this->load_item($_cat,'cat',sizeof($_categories));
 				while($_cat->category_parent!=0):
 					$_cat = get_category($_cat->category_parent);	
 					$this->load_item($_cat,'cat');
@@ -88,13 +88,13 @@ class WordpressThemeFragment {
 	}
 
 	/* load_item : add item to tree */
-	private function load_item($item,$type) {
+	private function load_item($item,$type,$siblings=0) {
 		/* cat */
 		if($type=='cat') :
-			$this->tree[]=array($item->cat_ID,$item->cat_name,$item->slug,$type);	
+			$this->tree[]=array($item->cat_ID,$item->cat_name,$item->slug,$type,$siblings);	
 		/* post */	
 		else:
-			$this->tree[]=array($item->ID,$item->post_title,$item->post_name,$type);	
+			$this->tree[]=array($item->ID,$item->post_title,$item->post_name,$type,$siblings);	
 		endif;
 	}
 
@@ -226,49 +226,84 @@ class WordpressThemeFragment {
 		endif;
 	}
 	
-	/* Breadcrumbs */
-	public function get_breadcrumbs() {
-		return $this->tree;
+	/*
+	 * get_breadcrumbs 
+	 * Get parent tree with filters and home link
+	 *
+	 */
+	public function get_breadcrumbs( $hasHome, $removePws) {
+		$_tree = $this->tree;
+
+		/* add root item */
+		if( $hasHome ) :
+			$_home[] = array(0,'Home','','home',1);	
+			$_tree = array_merge($_home,$_tree);
+		endif;
+
+		/* filter parents with siblings */
+		if( $removePws ) :
+			function _filter_items($var) {
+				if($var[4]>1) : 
+					return false;
+				else :
+					return true;
+				endif;
+			}
+			$_tree = array_filter($_tree,"_filter_items");
+		endif;
+
+		return $_tree;
 	}
 
-	/* Breadcrumbs html 
+	/* 
+	 *  get_greadcrumbs_html
+	 *	Get breadcrumbs as html order list
 	 *
-	 * @todo check if post is having more parents and remove them 
+	 *  params
+	 *		hasHome		- boolean - if we need to add home/root link at begining
+	 *		removePws	- boolean - if we will remove parents with sibling(s)
+	 *  
 	 */
-	public function get_breadcrumbs_html() {
+	public function get_breadcrumbs_html( $hasHome = true, $removePws = true ) {
 
-		/* adding home 
-		 * @todo this should be a parameter
-		 */
-		$_home[] = array(0,'Home','','home');	
+		$_tree = $this->get_breadcrumbs($hasHome,$removePws);
+
+		/* build link based on item type */
+		function _get_permalink( $var ) {
+			if($var[3]=='post'):
+				$_permalink=get_permalink($var[0]);
+			elseif($var[3]=='category'):
+				$_permalink=get_category_link($var[0]);
+			else:
+				$_permalink=get_bloginfo("home");
+			endif;
+			return $_permalink;
+		}
+
+		/* draw items */
+		$_breadcrumbs = "";
 		
-		$_items= $this->get_breadcrumbs();
-		$_items = array_merge($_home,$_items);
-		$_cnt=1;
-		if(sizeof($_items)>0):
-			echo "<ol>\n";
-			foreach($_items as $_item):
-				/* permalink */
-				$_permalink;
-				if($_item[3]=='post'):
-					$_permalink=get_permalink($_item[0]);
-				elseif($_item[3]=='category'):
-					$_permalink=get_category_link($_item[0]);
-				else:
-					$_permalink=get_bloginfo("home");
-				endif;
-	
-				/* writting html item  */
-				if($_cnt==sizeof($_items)):
-					echo "<li>{$_item[1]}</li>\n";
-				else:
-					echo "<li><a href=\"{$_permalink}\">{$_item[1]}</a></li>\n";
-				endif;
+		if(sizeof($_tree)>0):
+			$_cnt = 1;
+			foreach($_tree as $_item):
+				$_breadcrumb	= "";
+				$_permalink		= _get_permalink( $_item );
 
+				if(sizeof($_tree)==$_cnt):
+					$_breadcrumb = $_item[1];	
+				else:
+					$_breadcrumb = "<a href=\"{$_permalink}\">{$_item[1]}</a>";
+				endif;
+				
+				$_breadcrumb = "\t<li>{$_breadcrumb}</li>\n";
+				$_breadcrumbs .= $_breadcrumb;
 				$_cnt++;
 			endforeach;
-			echo "</ol>\n";
+			
+			$_breadcrumbs = "<ol>\n{$_breadcrumbs}</ol>\n";
 		endif;
+
+		return $_breadcrumbs;
 	}
 
 	/* set current section */
