@@ -231,19 +231,31 @@ class WordpressThemeFragment {
 		return $this->tree;
 	}
 
-	/* Breadcrumbs html */
+	/* Breadcrumbs html 
+	 *
+	 * @todo check if post is having more parents and remove them 
+	 */
 	public function get_breadcrumbs_html() {
+
+		/* adding home 
+		 * @todo this should be a parameter
+		 */
+		$_home[] = array(0,'Home','','home');	
+		
 		$_items= $this->get_breadcrumbs();
+		$_items = array_merge($_home,$_items);
 		$_cnt=1;
 		if(sizeof($_items)>0):
-			echo "<ul>\n";
+			echo "<ol>\n";
 			foreach($_items as $_item):
 				/* permalink */
 				$_permalink;
 				if($_item[3]=='post'):
 					$_permalink=get_permalink($_item[0]);
-				else:
+				elseif($_item[3]=='category'):
 					$_permalink=get_category_link($_item[0]);
+				else:
+					$_permalink=get_bloginfo("home");
 				endif;
 	
 				/* writting html item  */
@@ -255,7 +267,7 @@ class WordpressThemeFragment {
 
 				$_cnt++;
 			endforeach;
-			echo "</ul>\n";
+			echo "</ol>\n";
 		endif;
 	}
 
