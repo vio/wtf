@@ -272,7 +272,7 @@ class WordpressThemeFragment {
 		function _get_permalink( $var ) {
 			if($var[3]=='post'):
 				$_permalink=get_permalink($var[0]);
-			elseif($var[3]=='category'):
+			elseif($var[3]=='cat'):
 				$_permalink=get_category_link($var[0]);
 			else:
 				$_permalink=get_bloginfo("home");
@@ -286,8 +286,8 @@ class WordpressThemeFragment {
 		if(sizeof($_tree)>0):
 			$_cnt = 1;
 			foreach($_tree as $_item):
-				$_breadcrumb	= "";
-				$_permalink		= _get_permalink( $_item );
+				$_breadcrumb = "";
+				$_permalink	= _get_permalink( $_item );
 
 				if(sizeof($_tree)==$_cnt):
 					$_breadcrumb = $_item[1];	
