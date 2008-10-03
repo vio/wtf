@@ -1,14 +1,7 @@
 <?php 
-/**
- *	WTF - Wordpress Theme Fragments
- *	
- *	Loading fragments based on name space and wp page type
- *
- **/
 
-
-/* WordpressThemeFragment */
-class WordpressThemeFragment {
+/* WordpressThemePartial */
+class wtpClass {
 	public $current_section = 0;
 	
 	private $wtf_dir = '';
@@ -19,7 +12,7 @@ class WordpressThemeFragment {
 	private $files = array();
 	private $paths = array();
 
-	public function WordpressThemeFragment() {
+	public function wtpCLass() {
 		$this->load_from_wp();
 		
 		$this->set_tree();
