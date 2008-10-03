@@ -92,10 +92,10 @@ class wtpClass {
 
 		/* 404 */
 		elseif(is_404()):
-			$this->load_item('Not found');
+			$this->load_item(array('Not found','404'));
 
 		elseif(is_search()):
-			$this->load_item('Search results');
+			$this->load_item(array('Search results','search'));
 				
 		endif;
 
@@ -110,7 +110,7 @@ class wtpClass {
 		elseif($type=='post'):
 			$this->tree[]=array($item->ID,$item->post_title,$item->post_name,$type,$siblings);	
 		else:
-			$this->tree[]=array(0,$item,'','',$siblings);
+			$this->tree[]=array(0,$item[0],$item[1],'',$siblings);
 		endif;
 	}
 
