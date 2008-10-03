@@ -1,16 +1,28 @@
 <?php 
 
-/* WordpressThemePartial */
 class wtpClass {
 	public $current_section = 0;
 	
 	private $wtf_dir = '';
 	private $tree= array();
+
+	/* 
+	 *	Pre-def directories where we search for partials 
+	 *	global - for main templates ( index, home, single, 40 )
+	 *	shared - partials used across all templates ( ex: head, header, footer, etc )
+	 *
+	 */
 	private $dirs = array('global','shared');
 	
-	private $namespaces = array();
-	private $files = array();
-	private $paths = array();
+	/* all directories where we should search */
+	private $namespaces = array();		
+	
+	/* all directories paths */
+	private $paths = array();			
+
+	/* all files names for a content partial */	
+	private $files = array();			
+
 
 	public function wtpCLass() {
 		$this->load_from_wp();
@@ -24,12 +36,14 @@ class wtpClass {
 		$this->set_current_section();
 	}
 
+
 	/* Load all information from Wordpress */
 	private function load_from_wp() {
 		$this->wtf_dir= TEMPLATEPATH."/fragments/";
-
 	}
 
+
+	/* Creats page/post/category structure */
 	private function set_tree() {
 
 		/* Post*/
@@ -91,6 +105,7 @@ class wtpClass {
 		endif;
 	}
 
+	/* namespaces */
 	private function set_namespaces() {
 		$_dirs= array();
 		$_dirs[]= 'global/';
@@ -119,9 +134,14 @@ class wtpClass {
 		echo "</div>";
 	}
 	
-	/* fragment files */
+	
+	/* files */
 	private function set_files() {
 		$this->files[] = 'index';	
+	
+		/* switching response type based on WP if_* function */
+		
+		/* single page */
 		if(is_single()):
 			global $post;
 			$this->files[]= 'single';
@@ -129,6 +149,7 @@ class wtpClass {
 			$this->files[]= 'single-'.$post->ID;
 			$this->files[]= $post->post_name;
 			
+		/* is_category */	
 		elseif(is_category()):
 			global $cat;
 			$this->files[]= 'category';
@@ -136,6 +157,7 @@ class wtpClass {
 			$this->files[]= 'category-'.$cat;
 			$this->files[]= get_category($cat)->slug; 
 			
+		/* is_page */
 		elseif(is_page()):
 			global $post;
 			$this->files[]= 'page';
@@ -143,8 +165,17 @@ class wtpClass {
 			$this->files[]= 'page-'.$post->ID;
 			$this->files[]= $post->post_name;
 
+		/* homepage */
 		elseif(is_home()):
 			$this->files[]= 'home';
+
+		/* 404 */
+		elseif(is_404()):
+			$this->files[]= '404';
+
+		/* seearch results */
+		elseif(is_search()):
+			$this->files[]= 'search';
 
 		else:
 			'other types of content';

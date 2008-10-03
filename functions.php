@@ -12,17 +12,11 @@ function wtp_load($partial = "content" ) {
 	}
 
 
-
-
-
-
 /* get breadcrumbs html */
 function wtp_get_breadcrumbs() {
 	global $wtp;
 	echo $wtp->get_breadcrumbs_html();
 	}
-
-
 
 
 /*
