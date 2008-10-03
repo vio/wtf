@@ -93,6 +93,9 @@ class wtpClass {
 		/* 404 */
 		elseif(is_404()):
 			$this->load_item('Not found');
+
+		elseif(is_search()):
+			$this->load_item('Search results');
 				
 		endif;
 
