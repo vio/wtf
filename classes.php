@@ -89,19 +89,25 @@ class wtpClass {
 				$_post= get_post($_post->post_parent);
 				$this->load_item($post,'post');
 			endwhile;
-		
+
+		/* 404 */
+		elseif(is_404()):
+			$this->load_item('Not found');
+				
 		endif;
 
 	}
 
 	/* load_item : add item to tree */
-	private function load_item($item,$type,$siblings=0) {
+	private function load_item($item,$type="",$siblings=0) {
 		/* cat */
 		if($type=='cat') :
 			$this->tree[]=array($item->cat_ID,$item->cat_name,$item->slug,$type,$siblings);	
 		/* post */	
-		else:
+		elseif($type=='post'):
 			$this->tree[]=array($item->ID,$item->post_title,$item->post_name,$type,$siblings);	
+		else:
+			$this->tree[]=array(0,$item,'','',$siblings);
 		endif;
 	}
 

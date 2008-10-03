@@ -4,7 +4,7 @@ Plugin Name: Wordpress Theme Partials (WTP)
 Plugin URI: http://semanticthoughts.com/wordpress/theme/partials
 Description: WTP loads theme partials based on namespace constructed from posts/pages/category hierarchy.
 Author: Viorel Cojocaru (vio@beanon.com)
-Version: 0.5.0
+Version: 0.5.1
 Author URI: http://semanticthoughts.com/
 */
 
