@@ -8,8 +8,10 @@ Version: 0.1
 Author URI: http://semanticthoughts.com/
 
 */
+$wtf =  null;
 
 include "classes.php";
+include "functions.php";
 
 /*
  * Add WTF css
@@ -28,6 +30,7 @@ function wtf_add_css() {
  * Init WTF
  *
  */
+
 function wtf_init() {
 	global $wtf;
 	$wtf=new WordpressThemeFragment;
@@ -35,3 +38,5 @@ function wtf_init() {
 
 add_action('wp','wtf_init');
 add_filter('wp_head','wtf_add_css');
+
+?>
