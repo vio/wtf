@@ -251,16 +251,18 @@ class wtpClass {
 	}
 	
 	/*
-	 * get_breadcrumbs 
-	 * Get parent tree with filters and home link
+	 *	get_breadcrumbs 
+	 *	Get parent tree with filters and home link
+	 *	addHome - add homepage link 
+	 *  removePws - remove parents with simblings ( if a post is under multiple categorie, will remove parent from list ) 
 	 *
 	 */
-	public function get_breadcrumbs( $hasHome, $removePws) {
+	public function get_breadcrumbs( $addHome, $removePws ) {
 		$_tree = $this->tree;
 
 		/* add root item */
-		if( $hasHome ) :
-			$_home[] = array(0,'Home','','home',1);	
+		if( $addHome ) :
+			$_home[] = array(0, 'Home', '', 'home', 1);	
 			$_tree = array_merge($_home,$_tree);
 		endif;
 
@@ -277,57 +279,6 @@ class wtpClass {
 		endif;
 
 		return $_tree;
-	}
-
-	/* 
-	 *  get_greadcrumbs_html
-	 *	Get breadcrumbs as html order list
-	 *
-	 *  params
-	 *		hasHome		- boolean - if we need to add home/root link at begining
-	 *		removePws	- boolean - if we will remove parents with sibling(s)
-	 *  
-	 */
-	public function get_breadcrumbs_html( $hasHome = true, $removePws = true ) {
-
-		$_tree = $this->get_breadcrumbs($hasHome,$removePws);
-
-		/* build link based on item type */
-		function _get_permalink( $var ) {
-			if($var[3]=='post'):
-				$_permalink=get_permalink($var[0]);
-			elseif($var[3]=='cat'):
-				$_permalink=get_category_link($var[0]);
-			else:
-				$_permalink=get_bloginfo("home");
-			endif;
-			return $_permalink;
-		}
-
-		/* draw items */
-		$_breadcrumbs = "";
-		
-		if(sizeof($_tree)>0):
-			$_cnt = 1;
-			foreach($_tree as $_item):
-				$_breadcrumb = "";
-				$_permalink	= _get_permalink( $_item );
-
-				if(sizeof($_tree)==$_cnt):
-					$_breadcrumb = $_item[1];	
-				else:
-					$_breadcrumb = "<a href=\"{$_permalink}\">{$_item[1]}</a>";
-				endif;
-				
-				$_breadcrumb = "\t<li>{$_breadcrumb}</li>\n";
-				$_breadcrumbs .= $_breadcrumb;
-				$_cnt++;
-			endforeach;
-			
-			$_breadcrumbs = "<ol>\n{$_breadcrumbs}</ol>\n";
-		endif;
-
-		return $_breadcrumbs;
 	}
 
 	/* set current section */
