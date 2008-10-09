@@ -1,5 +1,10 @@
 <?php 
 
+/*
+ * wtpClass
+ * @todo partials directory should be a property
+*/
+
 class wtpClass {
 	public $current_section = 0;
 	
@@ -12,16 +17,16 @@ class wtpClass {
 	 *	shared - partials used across all templates ( ex: head, header, footer, etc )
 	 *
 	 */
-	private $dirs = array('global','shared');
+	public $dirs = array('global','shared');
 	
 	/* all directories where we should search */
-	private $namespaces = array();		
+	public $namespaces = array();		
 	
 	/* all directories paths */
-	private $paths = array();			
+	public $paths = array();			
 
 	/* all files names for a content partial */	
-	private $files = array();			
+	public $files = array();			
 
 
 	public function wtpCLass() {
@@ -41,6 +46,8 @@ class wtpClass {
 	private function load_from_wp() {
 		$this->wtf_dir= TEMPLATEPATH."/fragments/";
 	}
+
+
 
 
 	/* Creats page/post/category structure */
@@ -135,15 +142,6 @@ class wtpClass {
 		return $this->namespaces;	
 	}
 
-	public function debug_namespaces() {
-		echo "<div class=\"debug-wtf\">";
-		foreach($this->namespaces as $_ns):
-			echo $_ns."<br />";
-		endforeach;
-		echo "</div>";
-	}
-	
-	
 	/* files */
 	private function set_files() {
 		$this->files[] = 'index';	
@@ -195,14 +193,7 @@ class wtpClass {
 		return $this->files;
 	}
 	
-	public function debug_files() {
-		echo "<div class=\"debug-wtf\">";
-		foreach($this->files as $_file):
-			echo $_file."<br />";
-		endforeach;
-		echo "</div>";
-	}
-	
+
 	/* paths */
 	private function set_paths() {
 		foreach($this->namespaces as $_ns):
@@ -214,14 +205,6 @@ class wtpClass {
 
 	public function get_paths() {
 		return $this->paths;
-	}
-
-	public function debug_paths() {
-		echo "<div class=\"debug-wtf\">";
-		foreach($this->paths as $_path):
-			echo $_path."<br />";
-		endforeach;
-		echo "</div>";
 	}
 
 	/* Load a layout fragment */

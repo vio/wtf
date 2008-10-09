@@ -1,7 +1,23 @@
-.debug-wtf {
-	margin: 0 0 1em;
+.debug-wtp {
+	margin: 0;
 	border: 1px solid #98BE10;
-	padding: 1.5em;
+	padding: 20px 50px;
 	background: #F6FEDA;
 	color: #333;
+	font: normal normal normal 12px/15px Verdana,Arial,sans-serif;
 	}
+
+	.debug-wtp h2 {
+		margin: 0 0 10px;
+		font-size: 18px;
+		}
+
+	.debug-wtp h3 {
+		margin: 10px 0 5px;
+		font-size: 14px;
+		}
+
+	.debug-wtp p {
+		margin: 0;
+		padding: 0;
+		}

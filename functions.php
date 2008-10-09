@@ -1,9 +1,7 @@
 <?php
 
-	
 /*
- *	Load requested partial.
- *	If none, 'content' will be used 
+ *	Load requested partial - If none, 'content' will be used 
 */
 
 function wtp_load($partial = "content" ) {
@@ -12,13 +10,16 @@ function wtp_load($partial = "content" ) {
 	}
 
 
-
 /*
- *	get_breadcrumbs
- *	
+ *	get_breadcrumbs - will return breadcrumbs as html 
+ *
  */
 
-function wtp_get_breadcrumbs( $before = "<h3>You are here:</h3>\n<ol>\n<li>", $separator = "</li>\n<li>", $after = "</li>\n</ol>\n", $addHome = true, $removePws = true ) {
+function wtp_get_breadcrumbs( 
+	$before = "<h3>You are here:</h3>\n<ol>\n<li>", 
+	$separator = "</li>\n<li>", 
+	$after = "</li>\n</ol>\n", $addHome = true, 
+	$removePws = true ) {
 	global $wtp;
 
 	$_tree = $wtp->get_breadcrumbs($addHome, $removePws);
@@ -73,6 +74,38 @@ function wtp_get_breadcrumbs( $before = "<h3>You are here:</h3>\n<ol>\n<li>", $s
 function wtp_add_css() {
 	$_url	= get_bloginfo("home")."/wp-content/plugins/wtf/wtf.css";
 	echo "<style type=\"text/css\">@import \"{$_url}\";</style>\n";
+}
+
+
+/* 
+ * wtp_add_debug - insert debug info 
+ * @todo must check for debug mode
+ * 
+*/
+function wtp_add_debug() {
+	global $wtp;
+
+	$_debugs = array(
+		'files',
+		'namespaces',
+		'paths'
+	);
+
+	$_output = "" ;
+
+	foreach( $_debugs as $_debug ):
+		$_output .=	"<h3>".ucfirst($_debug)."</h3>";
+		foreach($wtp->$_debug as $_item):
+			$_output .= $_item."<br />";
+		endforeach;
+	endforeach;
+	
+	$_output =  "<div class=\"debug-wtp\">".
+				"<h2>Wordpress Theme Partials debuging </h2>".		
+				$_output.
+				"</div>";
+	echo $_output;
+					
 }
 
 
