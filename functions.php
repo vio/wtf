@@ -79,7 +79,7 @@ function wtp_debug() {
 }
 
 /*
- * Add WTF css
+ * Add .wtf css styles
  *
  * inserting link to particular css styles required by WTF
  *
@@ -87,7 +87,7 @@ function wtp_debug() {
  * @todo must add checking for debug mode
 */
 function wtp_add_css() {
-	$_url	= get_bloginfo("home")."/wp-content/plugins/wtf/wtf.css";
+	$_url	= get_bloginfo("home")."/wp-content/plugins/wtf/wtp.css";
 	echo "<style type=\"text/css\">@import \"{$_url}\";</style>\n";
 }
 

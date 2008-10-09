@@ -282,13 +282,5 @@ class wtpClass {
 		endif;
 		}
 
-	public function debug() {
-		echo "<div id=\"wtf-debug\">";
-		foreach($this->namespaces as $_ns):
-			echo "$_ns<br />";
-		endforeach;
-		echo "</div>";
-	}
-
 }
 ?>
