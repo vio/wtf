@@ -25,9 +25,6 @@ function wtp_init() {
 
 /* add filters/actions to wordpress */
 add_action('wp','wtp_init');
-
-
 add_filter('set_current_user','wtp_debug');
 
- 
 ?>
