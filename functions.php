@@ -63,6 +63,21 @@ function wtp_get_breadcrumbs(
 }
 
 
+/* 
+ * wtp_debug - add debug only use is logged in
+ * loading debug only when 
+ *  - user is logged in as admin 
+ *  - @todo user level is over a particular level, currently only for user_level=10
+ */
+
+function wtp_debug() {
+	global $userdata;
+	if( $userdata->user_level == 10 ) : 
+		add_filter('wp_head','wtp_add_css');
+		add_filter('wp_footer','wtp_add_debug');
+	endif;
+}
+
 /*
  * Add WTF css
  *
