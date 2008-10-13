@@ -6,11 +6,11 @@ Requires at least: 2.6.0
 Tested up to: 2.6.2
 Stable tag: 0.0.0
 
-wp-partials will load theme partials based on a particular namespace/filename
+WPT can load theme partials based on a particular namespace/filename
 
 == Description ==
 
-wp-partials can load theme partials based on a namespace / filename constructed from Wordpress response hierarchy and type ( page/single/category ).
+WPT can load theme partials based on a namespace / filename constructed from Wordpress response hierarchy and type ( page/single/category ).
 
 
 == Installation ==
