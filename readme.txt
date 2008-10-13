@@ -6,11 +6,11 @@ Requires at least: 2.6.0
 Tested up to: 2.6.2
 Stable tag: 0.0.0
 
-WPT can load theme partials based on a particular namespace/filename
+WTP can load theme partials based on a particular namespace/filename
 
 == Description ==
 
-WPT can load theme partials based on a namespace / filename constructed from Wordpress response hierarchy and type ( page/single/category ).
+WTP can load theme partials based on a namespace / filename constructed from Wordpress response hierarchy and type ( page/single/category ).
 
 
 == Installation ==
