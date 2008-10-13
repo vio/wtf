@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Wordpress Theme Partials (WTP)
-Plugin URI: http://semanticthoughts.com/wordpress/theme/partials
-Description: WTP loads theme partials based on namespace constructed from posts/pages/category hierarchy.
-Author: Viorel Cojocaru (vio@beanon.com)
+Plugin Name: Wordpress Theme Partials (wp-partials)
+Plugin URI: 
+Description: wp-partials loads theme partials based on namespace constructed from posts/pages/category hierarchy.
+Author: Viorel Cojocaru
 Version: 0.5.1
 Author URI: http://semanticthoughts.com/
 */
@@ -22,6 +22,7 @@ function wtp_init() {
 	global $wtp;
 	$wtp=new wtpClass;
 	}
+
 
 /* add filters/actions to wordpress */
 add_action('wp','wtp_init');
