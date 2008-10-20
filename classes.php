@@ -104,6 +104,9 @@ class wtpClass {
 		elseif(is_search()):
 			$this->load_item(array('Search results','search'));
 				
+		elseif(is_tag()):
+			$this->load_item(array('Tag','tag'));
+			
 		endif;
 
 	}
@@ -180,9 +183,14 @@ class wtpClass {
 		elseif(is_404()):
 			$this->files[]= '404';
 
-		/* seearch results */
+		/* search results */
 		elseif(is_search()):
 			$this->files[]= 'search';
+
+		/* tag results */
+		elseif(is_tag()):
+			$this->files[]= 'tag';
+
 
 		else:
 			'other types of content';

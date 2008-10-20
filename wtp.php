@@ -6,6 +6,8 @@ Description: wp-partials loads theme partials based on namespace constructed fro
 Author: Viorel Cojocaru
 Version: 0.5.1
 Author URI: http://semanticthoughts.com/
+
+@todo add suport to absolute paths, ie: blog/partial
 */
 
 /* wp theme partials object */
